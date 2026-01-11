@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Externals\" />
+    <Folder Include="Features\Commands\" />
+    <Folder Include="Features\Queries\Users\GetById\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>

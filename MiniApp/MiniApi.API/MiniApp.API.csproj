@@ -11,11 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\MiniApi.DAL\MiniApp.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MiniApi.DAL\MiniApp.DAL.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

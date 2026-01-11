@@ -1,5 +1,4 @@
 ﻿using MiniApp.Models.Commons;
-using MiniApp.Models.Models;
 
 namespace MiniApp.BLL.Abstractions.Internals.Reads
 {
