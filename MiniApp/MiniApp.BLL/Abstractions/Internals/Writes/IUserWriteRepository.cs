@@ -1,6 +1,8 @@
-﻿namespace MiniApp.BLL.Abstractions.Internals.Writes
+﻿using MiniApp.Models.Models;
+
+namespace MiniApp.BLL.Abstractions.Internals.Writes
 {
-    public interface IUserWriteRepository
+    public interface IUserWriteRepository:IGenericWriteRepository<User,Guid>
     {
     }
 }
