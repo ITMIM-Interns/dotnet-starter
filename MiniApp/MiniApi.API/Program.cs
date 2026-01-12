@@ -1,3 +1,5 @@
+using MiniApp.API.Middlewares;
+using MiniApp.BLL.ServiceRegistration;
 using MiniApp.DAL.ServiceRegistration;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception();
+builder.Services.AddBLLServices();
 builder.Services.AddDALServices(connectionString);
 var app = builder.Build();
 
@@ -21,7 +24,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseMiddleware<GlobalCustomExceptionHandler>();
 app.MapControllers();
 
 app.Run();

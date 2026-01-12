@@ -9,6 +9,6 @@ namespace MiniApp.Models.Commons
     public abstract class BaseEntity<Tkey> where Tkey : struct
     {
         public Tkey Id { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; } = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, TimeZoneInfo.Local);
     }
 }
