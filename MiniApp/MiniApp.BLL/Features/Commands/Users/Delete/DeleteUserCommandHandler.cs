@@ -2,13 +2,9 @@
 using MiniApp.BLL.Abstractions.Internals.Reads;
 using MiniApp.BLL.Abstractions.Internals.UnitOfWork;
 using MiniApp.BLL.Abstractions.Internals.Writes;
+using MiniApp.BLL.Exceptions.Commons;
 using MiniApp.BLL.Exceptions.Users;
 using MiniApp.Models.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiniApp.BLL.Features.Commands.Users.Delete
 {
@@ -29,8 +25,9 @@ namespace MiniApp.BLL.Features.Commands.Users.Delete
         {
             User? existUser = await _readUser.GetByIdAsync(request.Id,true);
             if (existUser is null)
-                throw new UserNotFoundException();
+                throw new UserNotFoundException(ExceptionMessage.UserNotFoundMessage);
             await _writeUser.Remove(existUser);
+            await _unitOfWork.SaveAsync();
             return Unit.Value;
         }
     }

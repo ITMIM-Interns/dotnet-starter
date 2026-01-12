@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using MiniApp.BLL.Abstractions.Internals.Reads;
+using MiniApp.BLL.Exceptions.Commons;
 using MiniApp.BLL.Exceptions.Users;
 using MiniApp.DTOs.Users;
 using MiniApp.Models.Models;
@@ -19,8 +20,8 @@ namespace MiniApp.BLL.Features.Queries.Users.GetById
         {
             User? user = await _userReadRepository.GetByIdAsync(request.Id);
             if (user is null)
-                throw new UserNotFoundException();
-            return new UserDto(user.Id,user.Username,user.Email);
+                throw new UserNotFoundException(ExceptionMessage.UserNotFoundMessage);
+            return new UserDto(user.Id,user.Username,user.Email,user.Password);
         }
     }
 }

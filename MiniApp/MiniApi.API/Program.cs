@@ -1,3 +1,4 @@
+using MiniApp.API.Middlewares;
 using MiniApp.BLL.ServiceRegistration;
 using MiniApp.DAL.ServiceRegistration;
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseMiddleware<GlobalCustomExceptionHandler>();
 app.MapControllers();
 
 app.Run();

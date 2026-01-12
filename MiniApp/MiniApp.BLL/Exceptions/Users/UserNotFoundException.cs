@@ -11,7 +11,5 @@ namespace MiniApp.BLL.Exceptions.Users
     {
         public UserNotFoundException(string message) :base(message) { }
        
-        public UserNotFoundException() :base(ExceptionMessage.UserNotFoundMessage) { }
-
     }
 }
