@@ -4,7 +4,8 @@
           Guid id,
           string Username,
           string Email,
-          string Password
+          string Password,
+          string ImageUrl
         );
     
 }

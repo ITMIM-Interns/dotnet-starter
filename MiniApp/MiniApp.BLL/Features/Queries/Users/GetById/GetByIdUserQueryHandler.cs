@@ -21,7 +21,7 @@ namespace MiniApp.BLL.Features.Queries.Users.GetById
             User? user = await _userReadRepository.GetByIdAsync(request.Id);
             if (user is null)
                 throw new UserNotFoundException(ExceptionMessage.UserNotFoundMessage);
-            return new UserDto(user.Id,user.Username,user.Email,user.Password);
+            return new UserDto(user.Id,user.Username,user.Email,user.Password,user.Image);
         }
     }
 }
