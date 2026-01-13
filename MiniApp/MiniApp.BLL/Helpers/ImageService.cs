@@ -15,5 +15,10 @@ namespace MiniApp.BLL.Helpers
 
             return extensions.Contains(ext) && mimeTypes.Contains(file.ContentType);
         }
+        public static string ExtractKeyFromUrl(string fileUrl)
+        {
+            var uri = new Uri(fileUrl);
+            return uri.AbsolutePath.TrimStart('/');
+        }
     }
 }

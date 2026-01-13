@@ -21,7 +21,7 @@ namespace MiniApp.BLL.Behaviors
                 var failure = _validators
                     .Select(v => v.Validate(context))
                     .SelectMany(r => r.Errors)
-                    .Where(f => f != null)
+                    .Where(f => f is not null)
                     .FirstOrDefault();
        
                 if (failure is not null)

@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniApp.BLL.Abstractions.Internals.Reads;
-using MiniApp.BLL.Exceptions.Commons;
-using MiniApp.BLL.Exceptions.Users;
 using MiniApp.BLL.Helpers;
 using MiniApp.DataAccess.Data;
 using MiniApp.Models.Models;
@@ -15,7 +13,10 @@ namespace MiniApp.DAL.Implementations.Internals.Reads
 
         public async Task<bool> EmailExistsAsync(string email) => await _context.Users.AnyAsync(u => u.Email == email);
         public async Task<bool> UserNameExistsAsync(string userName) => await _context.Users.AnyAsync(u=>u.Username==userName);
+        public async Task<bool> UserNameExistAsyncForUpdate(string username, Guid id) => await _context.Users.AnyAsync(u => u.Username == username && u.Id != id);
+
         public async Task<User> FindByEmailAsync(string email, bool hasTracked = false)
+
         {
             User existUser;
             if (hasTracked)
@@ -41,5 +42,7 @@ namespace MiniApp.DAL.Implementations.Internals.Reads
             bool isCorrect = SecurityService.VerifyPassword(password, salt, user.Password);
             return Task.FromResult(isCorrect);
         }
+
+       
     }
 }

@@ -8,5 +8,6 @@ namespace MiniApp.BLL.Features.Commands.Users.Update
         Guid Id,
         string Username,
         IFormFile Image
+
     ):IRequest;
 }
