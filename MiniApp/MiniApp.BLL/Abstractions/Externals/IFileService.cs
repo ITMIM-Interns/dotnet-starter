@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace MiniApp.BLL.Abstractions.Externals.Files
+namespace MiniApp.BLL.Abstractions.Externals
 {
     public interface IFileService
     {

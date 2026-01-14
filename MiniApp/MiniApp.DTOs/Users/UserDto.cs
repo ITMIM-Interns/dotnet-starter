@@ -5,7 +5,8 @@
           string Username,
           string Email,
           string Password,
-          string ImageUrl
+          string ImageUrl,
+          bool isEmailConfirmed
         );
     
 }

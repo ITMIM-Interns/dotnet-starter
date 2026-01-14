@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MiniApp.BLL.Abstractions.Externals.Files;
+using MiniApp.BLL.Abstractions.Externals;
 using MiniApp.BLL.Abstractions.Internals.Reads;
 using MiniApp.BLL.Abstractions.Internals.UnitOfWork;
 using MiniApp.BLL.Abstractions.Internals.Writes;
@@ -16,12 +16,14 @@ namespace MiniApp.BLL.Features.Commands.Users.Create
         private readonly IUserReadRepository _userRead;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
-        public CreateUserCommandHandler(IUserWriteRepository userWrite, IUserReadRepository userRead, IUnitOfWork unitOfWork, IFileService fileService)
+        private readonly IEmailService _emailService;
+        public CreateUserCommandHandler(IUserWriteRepository userWrite, IUserReadRepository userRead, IUnitOfWork unitOfWork, IFileService fileService, IEmailService emailService)
         {
             _userWrite = userWrite;
             _userRead = userRead;
             _unitOfWork = unitOfWork;
             _fileService = fileService;
+            _emailService = emailService;
         }
 
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -46,6 +48,7 @@ namespace MiniApp.BLL.Features.Commands.Users.Create
                 newUser.Image = await _fileService.UploadFileAsync(request.Image,"user-image");
             await _userWrite.Add(newUser);
             await _unitOfWork.SaveAsync();
+            await _emailService.SendAsync(request.Email,newUser.LastVerificationCode,"Email confrimation");
             return newUser.Id;
         }
     }

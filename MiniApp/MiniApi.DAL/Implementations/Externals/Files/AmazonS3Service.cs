@@ -4,7 +4,7 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using MiniApp.BLL.Abstractions.Externals.Files;
+using MiniApp.BLL.Abstractions.Externals;
 
 namespace MiniApp.DAL.Implementations.Externals.Files
 {

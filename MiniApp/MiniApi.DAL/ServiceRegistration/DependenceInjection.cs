@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MiniApp.BLL.Abstractions.Externals.Files;
+using MiniApp.BLL.Abstractions.Externals;
 using MiniApp.BLL.Abstractions.Internals.Reads;
 using MiniApp.BLL.Abstractions.Internals.UnitOfWork;
 using MiniApp.BLL.Abstractions.Internals.Writes;
+using MiniApp.DAL.Implementations.Externals.Emails;
 using MiniApp.DAL.Implementations.Externals.Files;
 using MiniApp.DAL.Implementations.Internals.Reads;
 using MiniApp.DAL.Implementations.Internals.Writes;
@@ -25,6 +26,7 @@ namespace MiniApp.DAL.ServiceRegistration
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             //-----------------------------External services-------------------------------------------------------
             services.AddScoped<IFileService, AmazonS3Service>();
+            services.AddScoped<IEmailService, SmtpEmailService>();
             return services;
         }
     }

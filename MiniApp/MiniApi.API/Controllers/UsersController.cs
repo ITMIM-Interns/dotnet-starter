@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MiniApp.BLL.Abstractions.Externals;
 using MiniApp.BLL.Features.Commands.Users.Create;
 using MiniApp.BLL.Features.Commands.Users.Delete;
 using MiniApp.BLL.Features.Commands.Users.Update;
@@ -10,9 +11,8 @@ namespace MiniApp.API.Controllers
 {
     public sealed class UsersController : BaseController
     {
-        public UsersController(IMediator mediator) : base(mediator) { }
 
-
+        public UsersController(IMediator mediator, IEmailService emailService) : base(mediator) { }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<UserDto>> GetById([FromRoute] Guid id)
@@ -40,5 +40,6 @@ namespace MiniApp.API.Controllers
             await _mediator.Send(request);
             return Ok();
         }
+        
     }
 }
