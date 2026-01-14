@@ -4,6 +4,7 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MiniApp.BLL.Abstractions.Externals.Files;
 
 namespace MiniApp.DAL.Implementations.Externals.Files
@@ -13,7 +14,8 @@ namespace MiniApp.DAL.Implementations.Externals.Files
         private readonly IConfiguration _configuration;
         private readonly IAmazonS3 _s3Client;
         private readonly string _bucketName;
-        public AmazonS3Service(IConfiguration configuration)
+        private readonly ILogger<AmazonS3Service> _logger;
+        public AmazonS3Service(IConfiguration configuration, ILogger<AmazonS3Service> logger)
         {
             _configuration = configuration;
 
@@ -24,6 +26,7 @@ namespace MiniApp.DAL.Implementations.Externals.Files
 
             var awsCredentials = new Amazon.Runtime.BasicAWSCredentials(accessKey, secretKey);
             _s3Client = new AmazonS3Client(awsCredentials, RegionEndpoint.EUCentral1);
+            _logger = logger;
         }
         public async Task RemoveFileAsync(string fileKey)
         {
@@ -41,10 +44,17 @@ namespace MiniApp.DAL.Implementations.Externals.Files
         {
             if (string.IsNullOrEmpty(fileUrl))
                 throw new ArgumentNullException("File cannot be empty");
+            _logger.LogInformation("File is uploading");
             string newUrl = await UploadFileAsync(file, folder);
+            _logger.LogInformation("File uploaded");
             if(fileUrl is not null)
-               await RemoveFileAsync(fileUrl);
-               
+            {
+                _logger.LogInformation("File is deleting");
+                await RemoveFileAsync(fileUrl);
+                _logger.LogInformation("File deleted");
+
+            }
+
             return newUrl;
         }
 

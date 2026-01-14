@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Logging;
 using MiniApp.API.ResponseModel;
 using MiniApp.BLL.Exceptions.Commons;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace MiniApp.API.Middlewares
 {
@@ -36,24 +34,23 @@ namespace MiniApp.API.Middlewares
 
             context.Response.ContentType = "application/json";
             HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-            string exType=exception.GetType().ToString();
             ExceptionResponse response = new();
             switch (exception)
             {
                 case NotFoundException:
                     statusCode = HttpStatusCode.NotFound;
                     response.Message = exception.Message;
-                    _log.LogError($"{exType},Message:{response.Message}");
+                    _log.LogError($"{exception.GetType().ToString()},Message:{response.Message}");
                     break;
                 case ValidationException validation:
                     statusCode = HttpStatusCode.BadRequest;
                     response.Message = exception.Message;
-                    _log.LogError($"{exType},Message:{response.Message}");
+                    _log.LogError($"{exception.GetType().ToString()},Message:{response.Message}");
                     break;
                 default:
                     statusCode = HttpStatusCode.InternalServerError;
                     response.Message = exception.Message;
-                    _log.LogError($"{exception.GetType},Message:{response.Message}");
+                    _log.LogError($"{exception.GetType().ToString()},Message:{response.Message}");
                     break;
             }
             context.Response.StatusCode = (int)statusCode;
