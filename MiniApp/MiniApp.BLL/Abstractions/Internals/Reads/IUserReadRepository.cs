@@ -13,7 +13,8 @@ namespace MiniApp.BLL.Abstractions.Internals.Reads
         Task<User?> FindByUsernameAsync(string userName,bool hasTracked=false);
         Task<bool> CheckUserPasswordAsync(User user,string password);
         Task<UserDto> GetUserDetailByIdAsync(Guid userId);
-        //Task<bool> CheckVerifyByUserId(Guid userId);
+        Task<bool> ExistUserByidAsync(Guid userId);
+
     };
    
 }

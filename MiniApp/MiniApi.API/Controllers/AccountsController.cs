@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MiniApp.BLL.Features.Commands.Accounts.ConfirmEmail;
+using MiniApp.BLL.Features.Commands.Accounts.SendEmailVerificationCode;
 using MiniApp.BLL.Features.Commands.Accounts.ToggleUserStatus;
 using MiniApp.BLL.Features.Commands.Accounts.UserDeactive;
 using MiniApp.DTOs.Accounts;
@@ -27,6 +28,12 @@ namespace MiniApp.API.Controllers
         public async Task<ActionResult> DeactivateUser([FromRoute] Guid userId)
         {
             bool result = await _mediator.Send(new UserDeactiveCommand(userId));
+            return Ok(result);
+        }
+        [HttpPost("{userId:guid}/verification-code")]
+        public async Task<ActionResult> SendEmailVerificationCode([FromRoute] Guid userId)
+        {
+            bool result = await _mediator.Send(new SendEmailVerificationCodeCommand(userId));
             return Ok(result);
         }
     }

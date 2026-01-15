@@ -16,25 +16,23 @@ namespace MiniApp.DAL.Implementations.Internals.Reads
         public async Task<bool> EmailExistsAsync(string email) => await _context.Users.AnyAsync(u => u.Email == email);
         public async Task<bool> UserNameExistsAsync(string userName) => await _context.Users.AnyAsync(u=>u.Username==userName);
         public async Task<bool> UserNameExistAsyncForUpdate(string username, Guid id) => await _context.Users.AnyAsync(u => u.Username == username && u.Id != id);
+        public async Task<bool> ExistUserByidAsync(Guid userId) => await _context.Users.AnyAsync(u => u.Id == userId && u.IsActive);
 
         public async Task<User> FindByEmailAsync(string email, bool hasTracked = false)
-
         {
-            User existUser;
-            if (hasTracked)
-             existUser= await _context.Users.FirstOrDefaultAsync(u=>u.Email==email);
-            else 
-                existUser= await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
+            IQueryable<User> query=_context.Users;
+            if(hasTracked is false)
+                query=query.AsNoTracking();
+            User existUser = await query.FirstOrDefaultAsync(u => u.Email == email);
             return existUser;
         }
 
         public async Task<User> FindByUsernameAsync(string userName, bool hasTracked = false)
         {
-            User existUser;
-            if (hasTracked)
-                existUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == userName);
-            else
-                existUser = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == userName);
+            IQueryable<User> query=_context.Users;
+            if (hasTracked is false)
+                query = query.AsNoTracking();
+            User existUser = await query.FirstOrDefaultAsync(u => u.Username == userName);
             return existUser;
         }
 
@@ -52,5 +50,7 @@ namespace MiniApp.DAL.Implementations.Internals.Reads
                 )).FirstOrDefaultAsync();
             return user;
         }
+
+       
     }
 }

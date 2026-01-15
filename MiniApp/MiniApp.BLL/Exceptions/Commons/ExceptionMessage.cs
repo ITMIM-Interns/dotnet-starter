@@ -10,6 +10,8 @@
         public const string InvalidExpiresTimeMessage = "The verification code has expired. Please send a new code.";
         public const string VerificationNotFoundMessage = "Verification not found";
         public const string VerificationConfirmedMessage = "Verification already confirmed";
+        public const string ValidVerificationCode = "Your previous verification code is still valid. Please check your email and use that code to verify your account";
+
 
 
     }

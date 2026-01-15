@@ -6,7 +6,6 @@ using MiniApp.BLL.Exceptions.Commons;
 using MiniApp.BLL.Exceptions.Users;
 using MiniApp.BLL.Helpers;
 using MiniApp.Models.Models;
-using System.Runtime.Intrinsics.X86;
 
 namespace MiniApp.BLL.Features.Commands.Users.Update
 {

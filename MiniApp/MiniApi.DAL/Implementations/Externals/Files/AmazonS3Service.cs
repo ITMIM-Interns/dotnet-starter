@@ -37,14 +37,13 @@ namespace MiniApp.DAL.Implementations.Externals.Files
             await _s3Client.DeleteObjectAsync(deletedFile);
         }
 
-        public async Task<string> UpdateFileAsync(IFormFile file, string fileUrl,string folder)
+        public async Task<string> UpdateFileAsync(IFormFile file, string fileKey,string folder)
         {
-            if (string.IsNullOrEmpty(fileUrl))
+            if (string.IsNullOrEmpty(fileKey))
                 throw new ArgumentNullException("File cannot be empty");
             string newUrl = await UploadFileAsync(file, folder);
-            if(fileUrl is not null)
-               await RemoveFileAsync(fileUrl);
-               
+            if(fileKey is not null)
+               await RemoveFileAsync(fileKey);
             return newUrl;
         }
 
