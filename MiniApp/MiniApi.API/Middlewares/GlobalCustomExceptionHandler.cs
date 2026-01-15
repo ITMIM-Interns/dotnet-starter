@@ -45,6 +45,11 @@ namespace MiniApp.API.Middlewares
                     response.Message = exception.Message;
                     _log.LogError($"{exType},Message:{response.Message}");
                     break;
+                case InvalidAccountException:
+                    statusCode = HttpStatusCode.BadRequest;
+                    response.Message = exception.Message;
+                    _log.LogError($"{exType},Message:{response.Message}");
+                    break;
                 case ValidationException validation:
                     statusCode = HttpStatusCode.BadRequest;
                     response.Message = exception.Message;

@@ -6,6 +6,7 @@ using MiniApp.BLL.Abstractions.Internals.Writes;
 using MiniApp.BLL.Exceptions.Commons;
 using MiniApp.BLL.Exceptions.Users;
 using MiniApp.BLL.Helpers;
+using MiniApp.Models.Enums;
 using MiniApp.Models.Models;
 
 namespace MiniApp.BLL.Features.Commands.Users.Create
@@ -17,13 +18,15 @@ namespace MiniApp.BLL.Features.Commands.Users.Create
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
         private readonly IEmailService _emailService;
-        public CreateUserCommandHandler(IUserWriteRepository userWrite, IUserReadRepository userRead, IUnitOfWork unitOfWork, IFileService fileService, IEmailService emailService)
+        private readonly IUserVerificationWriteRepository _userVerificationWrite;
+        public CreateUserCommandHandler(IUserWriteRepository userWrite, IUserReadRepository userRead, IUnitOfWork unitOfWork, IFileService fileService, IEmailService emailService, IUserVerificationWriteRepository userVerificationWrite)
         {
             _userWrite = userWrite;
             _userRead = userRead;
             _unitOfWork = unitOfWork;
             _fileService = fileService;
             _emailService = emailService;
+            _userVerificationWrite = userVerificationWrite;
         }
 
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -42,13 +45,23 @@ namespace MiniApp.BLL.Features.Commands.Users.Create
                 Password = hashedPassword,
                 Salt = Convert.ToBase64String(salt),
                 ContactNumber = request.ContactNumber,
-                LastVerificationCode=SecurityService.GenerateVerificationCode()
+                IsActive = true,
+            };
+            UserVerification userVerification = new UserVerification()
+            {
+                User=newUser,
+                ExpiresAt = DateTimeOffset.UtcNow.AddMinutes(5),
+                Code = SecurityService.GenerateVerificationCode(),
+                IsConfirm = false,
+                Type = VerificationType.Email,
+                IsUsed=false
             };
             if (request.Image is not null)
                 newUser.Image = await _fileService.UploadFileAsync(request.Image,"user-image");
+            await _userVerificationWrite.Add(userVerification);
             await _userWrite.Add(newUser);
             await _unitOfWork.SaveAsync();
-            await _emailService.SendAsync(request.Email,newUser.LastVerificationCode,"Email confrimation");
+            await _emailService.SendAsync(request.Email,userVerification.Code,"Email confrimation");
             return newUser.Id;
         }
     }

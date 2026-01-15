@@ -2,6 +2,8 @@
 using MiniApp.BLL.Abstractions.Internals.Reads;
 using MiniApp.BLL.Helpers;
 using MiniApp.DataAccess.Data;
+using MiniApp.DTOs.Users;
+using MiniApp.Models.Enums;
 using MiniApp.Models.Models;
 using System.Text.Json;
 
@@ -43,6 +45,12 @@ namespace MiniApp.DAL.Implementations.Internals.Reads
             return Task.FromResult(isCorrect);
         }
 
-       
+        public async Task<UserDto> GetUserDetailByIdAsync(Guid userId)
+        {
+            UserDto user = await _context.Users.Where(u => u.Id == userId).Select(u => new UserDto(
+                    u.Id, u.Username, u.Email, u.Password, u.Image,u.IsActive, u.UserVerifications.Any(uv => uv.Type == VerificationType.Email && uv.IsConfirm)
+                )).FirstOrDefaultAsync();
+            return user;
+        }
     }
 }

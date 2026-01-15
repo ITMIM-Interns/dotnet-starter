@@ -1,4 +1,6 @@
-﻿using MiniApp.Models.Models;
+﻿using MiniApp.DTOs.Users;
+using MiniApp.Models.Enums;
+using MiniApp.Models.Models;
 
 namespace MiniApp.BLL.Abstractions.Internals.Reads
 {
@@ -10,6 +12,8 @@ namespace MiniApp.BLL.Abstractions.Internals.Reads
         Task<bool> UserNameExistAsyncForUpdate(string username,Guid id);
         Task<User?> FindByUsernameAsync(string userName,bool hasTracked=false);
         Task<bool> CheckUserPasswordAsync(User user,string password);
+        Task<UserDto> GetUserDetailByIdAsync(Guid userId);
+        //Task<bool> CheckVerifyByUserId(Guid userId);
     };
    
 }

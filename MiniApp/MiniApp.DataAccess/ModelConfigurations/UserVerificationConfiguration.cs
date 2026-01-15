@@ -1,0 +1,21 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MiniApp.Models.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MiniApp.DataAccess.ModelConfigurations
+{
+    internal sealed class UserVerificationConfiguration : IEntityTypeConfiguration<UserVerification>
+    {
+        public void Configure(EntityTypeBuilder<UserVerification> builder)
+        {
+            builder.Property(uv => uv.UserId).IsRequired();
+            builder.Property(uv=>uv.Type).IsRequired();
+            builder.Property(uv=>uv.Code).IsRequired(false).HasMaxLength(6);
+        }
+    }
+}

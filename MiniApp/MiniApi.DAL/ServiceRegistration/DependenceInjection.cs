@@ -22,6 +22,9 @@ namespace MiniApp.DAL.ServiceRegistration
             services.AddScoped(typeof(IGenericWriteRepository<,>), typeof(GenericWriteRepository<,>));
             services.AddScoped<IUserReadRepository, UserReadRepository>();
             services.AddScoped<IUserWriteRepository, UserWriteRepository>();
+            services.AddScoped<IUserVerificationReadRepository, UserVerificationReadRepository>();
+            services.AddScoped<IUserVerificationWriteRepository, UserVerificationWriteRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             //-----------------------------External services-------------------------------------------------------

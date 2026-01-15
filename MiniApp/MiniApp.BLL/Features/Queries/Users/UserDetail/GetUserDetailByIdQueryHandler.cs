@@ -3,25 +3,24 @@ using MiniApp.BLL.Abstractions.Internals.Reads;
 using MiniApp.BLL.Exceptions.Commons;
 using MiniApp.BLL.Exceptions.Users;
 using MiniApp.DTOs.Users;
-using MiniApp.Models.Models;
 
 namespace MiniApp.BLL.Features.Queries.Users.GetById
 {
-    public sealed class GetByIdUserQueryHandler : IRequestHandler<GetByIdUserQuery, UserDto>
+    public sealed class GetUserDetailByIdQueryHandler : IRequestHandler<GetUserDetailByIdQuery, UserDto>
     {
         private readonly IUserReadRepository _userReadRepository;
 
-        public GetByIdUserQueryHandler(IUserReadRepository userReadRepository)
+        public GetUserDetailByIdQueryHandler(IUserReadRepository userReadRepository)
         {
             _userReadRepository = userReadRepository;
         }
 
-        public async Task<UserDto> Handle(GetByIdUserQuery request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(GetUserDetailByIdQuery request, CancellationToken cancellationToken)
         {
-            User? user = await _userReadRepository.GetByIdAsync(request.Id);
+            UserDto? user = await _userReadRepository.GetUserDetailByIdAsync(request.Id);
             if (user is null)
                 throw new UserNotFoundException(ExceptionMessage.UserNotFoundMessage);
-            return new UserDto(user.Id,user.Username,user.Email,user.Password,user.Image,user.IsEmailConfirmed);
+            return user;
         }
     }
 }
