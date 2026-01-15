@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Logging;
 using MiniApp.API.ResponseModel;
 using MiniApp.BLL.Exceptions.Commons;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace MiniApp.API.Middlewares
 {

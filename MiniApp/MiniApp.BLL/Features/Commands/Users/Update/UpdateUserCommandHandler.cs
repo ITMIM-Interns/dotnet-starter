@@ -38,8 +38,17 @@ namespace MiniApp.BLL.Features.Commands.Users.Update
           
             if (request.Image is not null)
             {
-                string fileKey = ImageService.ExtractKeyFromUrl(existUser.Image);
-                string imageUrl = await _fileService.UpdateFileAsync(request.Image, fileKey, "user-image");
+                string imageUrl;
+                if (existUser.Image is not null)
+                {
+                    string fileKey = ImageService.ExtractKeyFromUrl(existUser.Image);
+                     imageUrl = await _fileService.UpdateFileAsync(request.Image, fileKey, "user-image");
+                }
+                else
+                {
+                    imageUrl = await _fileService.UploadFileAsync(request.Image,"user-image");
+                } 
+             
                 existUser.Image = imageUrl;
             }
             await _unitOfWork.SaveAsync();
