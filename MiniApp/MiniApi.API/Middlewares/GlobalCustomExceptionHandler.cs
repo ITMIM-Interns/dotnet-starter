@@ -52,8 +52,8 @@ namespace MiniApp.API.Middlewares
                     break;
                 default:
                     statusCode = HttpStatusCode.InternalServerError;
-                    response.Message = exception.InnerException.Message is null? exception.Message:exception.InnerException.Message;
-                    _log.LogError($"{exception.InnerException},Message:{response.Message}");
+                    response.Message = exception.Message;
+                    _log.LogError($"{exception.GetType},Message:{response.Message}");
                     break;
             }
             context.Response.StatusCode = (int)statusCode;

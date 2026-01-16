@@ -10,6 +10,7 @@ namespace MiniApp.Models.Models
         public string Password { get; set; }
         public string Salt { get; set; }
         public string? Image { get; set; }
+        public bool IsEmailConfirmed { get; set; } = false;
         public string? LastVerificationCode { get; set; }
     }
 }
