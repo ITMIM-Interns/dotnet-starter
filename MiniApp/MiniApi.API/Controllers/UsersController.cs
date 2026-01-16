@@ -15,9 +15,9 @@ namespace MiniApp.API.Controllers
         public UsersController(IMediator mediator, IEmailService emailService) : base(mediator) { }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<UserDto>> GetById([FromRoute] Guid id)
+        public async Task<ActionResult<UserDto>> UserDetailById([FromRoute] Guid id)
         {
-            UserDto response = await _mediator.Send(new GetByIdUserQuery(id));
+            UserDto response = await _mediator.Send(new GetUserDetailByIdQuery(id));
             return Ok(response);
         }
         [HttpDelete("{id:guid}")]
@@ -30,7 +30,7 @@ namespace MiniApp.API.Controllers
         public async Task<ActionResult> Create([FromForm] CreateUserCommand request)
         {
             Guid newId = await _mediator.Send(request);
-            return CreatedAtAction(nameof(Create), GetById, newId);
+            return CreatedAtAction(nameof(Create), UserDetailById, newId);
         }
         [HttpPut("{id:guid}")]
         public async Task<ActionResult> Update([FromForm] UpdateUserCommand request, [FromRoute] Guid id)

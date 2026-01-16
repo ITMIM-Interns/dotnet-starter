@@ -9,7 +9,7 @@ namespace MiniApp.DataAccess.ModelConfigurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Property(u=>u.Username).IsRequired().HasMaxLength(100);
-            builder.Property(u=>u.Username).HasMaxLength(50);
+            builder.Property(u=>u.Username).IsRequired().HasMaxLength(50);
             builder.HasIndex(u=>u.Username).IsUnique();
             builder.Property(u=>u.Email).IsRequired().HasMaxLength(200);
             builder.HasIndex(u => u.Email).IsUnique();

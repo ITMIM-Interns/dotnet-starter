@@ -1,9 +1,9 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.Logging;
+﻿using Amazon.S3;
+using FluentValidation;
 using MiniApp.API.ResponseModel;
 using MiniApp.BLL.Exceptions.Commons;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
+using System.Net.Mail;
 
 namespace MiniApp.API.Middlewares
 {
@@ -31,33 +31,41 @@ namespace MiniApp.API.Middlewares
                 await ExceptionHandleAsync(ex, context);
             }
         }
-        private async Task ExceptionHandleAsync(Exception exception,HttpContext context)
+        private async Task ExceptionHandleAsync(Exception ex,HttpContext context)
         {
 
             context.Response.ContentType = "application/json";
-            HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-            string exType=exception.GetType().ToString();
+            int statusCode = StatusCodes.Status500InternalServerError;
             ExceptionResponse response = new();
-            switch (exception)
+            switch (ex)
             {
                 case NotFoundException:
-                    statusCode = HttpStatusCode.NotFound;
-                    response.Message = exception.Message;
-                    _log.LogError($"{exType},Message:{response.Message}");
+                    statusCode = StatusCodes.Status404NotFound;
+                    response.Message = ex.Message;
+                    break;
+                case InvalidAccountException:
+                    statusCode = StatusCodes.Status400BadRequest;
+                    response.Message = ex.Message;
                     break;
                 case ValidationException validation:
-                    statusCode = HttpStatusCode.BadRequest;
-                    response.Message = exception.Message;
-                    _log.LogError($"{exType},Message:{response.Message}");
+                    statusCode = StatusCodes.Status400BadRequest;
+                    response.Message = ex.Message;
+                    break;
+                case SmtpException:
+                    statusCode = StatusCodes.Status503ServiceUnavailable;
+                    response.Message = ex.Message;
+                    break;
+                case AmazonS3Exception:
+                    statusCode = StatusCodes.Status503ServiceUnavailable;
+                    response.Message = ex.Message;
                     break;
                 default:
-                    statusCode = HttpStatusCode.InternalServerError;
-                    response.Message = exception.Message;
-                    _log.LogError($"{exception.GetType},Message:{response.Message}");
+                    response.Message = ex.InnerException?.Message?? ex.Message;
                     break;
             }
-            context.Response.StatusCode = (int)statusCode;
-            response.StatusCode = (int)statusCode;
+            _log.LogError($"{ex.GetType().Name}-->Message:{response.Message}");
+            context.Response.StatusCode = statusCode;
+            response.StatusCode = statusCode;
             await context.Response.WriteAsJsonAsync(response);
         }
     }

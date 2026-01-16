@@ -12,7 +12,7 @@ namespace MiniApp.BLL.ServiceRegistration
     {
         public static IServiceCollection AddBLLServices(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(GetByIdUserQueryHandler).Assembly);
+            services.AddMediatR(typeof(GetUserDetailByIdQueryHandler).Assembly);
             services.AddValidatorsFromAssembly(typeof(CreateUserCommandHandler).Assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;

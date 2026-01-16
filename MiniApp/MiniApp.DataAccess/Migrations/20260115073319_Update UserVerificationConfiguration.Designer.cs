@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniApp.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using MiniApp.DataAccess.Data;
 namespace MiniApp.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260115073319_Update UserVerificationConfiguration")]
+    partial class UpdateUserVerificationConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,9 +94,6 @@ namespace MiniApp.DataAccess.Migrations
                     b.Property<bool>("IsConfirm")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -102,9 +102,7 @@ namespace MiniApp.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "Type")
-                        .IsUnique()
-                        .HasFilter("[IsUsed]=0");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserVerifications");
                 });

@@ -6,6 +6,7 @@
           string Email,
           string Password,
           string ImageUrl,
+          bool IsActive,
           bool isEmailConfirmed
         );
     
