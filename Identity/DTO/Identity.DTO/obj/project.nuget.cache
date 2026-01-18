@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "vr0KEg21cBs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\DTO\\Identity.DTO\\Identity.DTO.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hp\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.32\\microsoft.aspnetcore.http.features.3.1.32.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.32\\microsoft.extensions.primitives.3.1.32.nupkg.sha512",
+    "C:\\Users\\Hp\\.nuget\\packages\\system.io.pipelines\\4.7.5\\system.io.pipelines.4.7.5.nupkg.sha512"
+  ],
+  "logs": []
+}
