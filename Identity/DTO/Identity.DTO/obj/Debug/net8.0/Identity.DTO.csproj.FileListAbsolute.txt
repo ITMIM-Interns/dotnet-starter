@@ -1,0 +1,13 @@
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\bin\Debug\net8.0\Identity.DTO.deps.json
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\bin\Debug\net8.0\Identity.DTO.dll
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\bin\Debug\net8.0\Identity.DTO.pdb
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.csproj.AssemblyReference.cache
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.AssemblyInfoInputs.cache
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.AssemblyInfo.cs
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.csproj.CoreCompileInputs.cache
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.sourcelink.json
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.dll
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\refint\Identity.DTO.dll
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\Identity.DTO.pdb
+C:\Users\Hp\Desktop\N-tier project\dotnet-starter2\Identity\DTO\Identity.DTO\obj\Debug\net8.0\ref\Identity.DTO.dll
