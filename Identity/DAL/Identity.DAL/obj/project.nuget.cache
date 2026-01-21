@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Yzqg8NmzGtA=",
+  "dgSpecHash": "cIvBvaz2Ecg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\DAL\\Identity.DAL\\Identity.DAL.csproj",
+  "projectFilePath": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DAL\\Identity.DAL\\Identity.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hp\\.nuget\\packages\\awssdk.core\\4.0.3.9\\awssdk.core.4.0.3.9.nupkg.sha512",
     "C:\\Users\\Hp\\.nuget\\packages\\awssdk.s3\\4.0.17.2\\awssdk.s3.4.0.17.2.nupkg.sha512",

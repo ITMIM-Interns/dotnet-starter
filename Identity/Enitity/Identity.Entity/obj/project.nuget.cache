@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yxrICxg19dw=",
+  "dgSpecHash": "FnFjHG1dbe0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\Enitity\\Identity.Entity\\Identity.Entity.csproj",
+  "projectFilePath": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\Enitity\\Identity.Entity\\Identity.Entity.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

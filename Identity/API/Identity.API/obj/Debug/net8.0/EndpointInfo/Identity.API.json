@@ -369,10 +369,6 @@
             "type": "string",
             "nullable": true
           },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
           "imageUrl": {
             "type": "string",
             "nullable": true

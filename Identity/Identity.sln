@@ -23,10 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DTO", "DTO", "{18DCD522-261
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.DTO", "DTO\Identity.DTO\Identity.DTO.csproj", "{20B5E52C-E7B3-4AB2-BF7C-E05236359B44}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{6E105ACA-6621-4B13-B514-56E42AC93A99}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.DataAccess", "DataAccess\Identity.DataAccess\Identity.DataAccess.csproj", "{AE0A0627-DFEB-43C8-A803-6D9A616BA479}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +49,6 @@ Global
 		{20B5E52C-E7B3-4AB2-BF7C-E05236359B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20B5E52C-E7B3-4AB2-BF7C-E05236359B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20B5E52C-E7B3-4AB2-BF7C-E05236359B44}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE0A0627-DFEB-43C8-A803-6D9A616BA479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE0A0627-DFEB-43C8-A803-6D9A616BA479}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE0A0627-DFEB-43C8-A803-6D9A616BA479}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE0A0627-DFEB-43C8-A803-6D9A616BA479}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,7 +59,6 @@ Global
 		{5BEEAD0E-D604-4EDB-A146-D24A4E61EBAD} = {E5291410-0CE0-4DFD-9A2D-60D63C3104AC}
 		{553F2CF4-D854-4475-A1D8-BF02FB33789B} = {268E1265-8F49-4B7A-A876-E99A05B07DC4}
 		{20B5E52C-E7B3-4AB2-BF7C-E05236359B44} = {18DCD522-2613-4590-BF61-A7CA37CDE217}
-		{AE0A0627-DFEB-43C8-A803-6D9A616BA479} = {6E105ACA-6621-4B13-B514-56E42AC93A99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0AF44CE-A086-4712-8DDC-EC82984C66DC}

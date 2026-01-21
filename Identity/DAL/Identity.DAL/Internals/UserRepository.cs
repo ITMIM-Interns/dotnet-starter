@@ -1,6 +1,6 @@
 ﻿using Identity.BLL.Abstractions.Internals.Repositories;
 using Identity.BLL.Helpers;
-using Identity.DataAccess.Data;
+using Identity.DAL.Data;
 using Identity.DTO.Users;
 using Identity.Entity.Enums;
 using Identity.Entity.Models;
@@ -44,7 +44,7 @@ namespace Identity.DAL.Internals
         public async Task<UserDto?> GetUserDetailByIdAsync(Guid userId)
         {
             UserDto? user = await _context.Users.Where(u => u.Id == userId).Select(u => new UserDto(
-                   u.Id, u.Username, u.Email, u.Password, u.Image, u.IsActive, u.UserVerifications.Any(
+                   u.Id, u.Username, u.Email,u.Image, u.IsActive, u.UserVerifications.Any(
                        uv => uv.Type == VerificationType.EmailConfirm && uv.Status == VerificationStatus.Success)
                )).FirstOrDefaultAsync();
             return user;

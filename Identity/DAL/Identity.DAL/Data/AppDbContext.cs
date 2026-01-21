@@ -1,8 +1,8 @@
-﻿using Identity.DataAccess.ModelConfigurations;
+﻿using Identity.DAL.ModelConfigurations;
 using Identity.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Identity.DataAccess.Data
+namespace Identity.DAL.Data
 {
     public sealed class AppDbContext : DbContext
     {
