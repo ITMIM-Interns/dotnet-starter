@@ -1,14 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\",
+  "WorkspaceRootPath": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|c:\\users\\hp\\desktop\\n-tier project\\dotnet-starter2\\identity\\bll\\identity.bll\\serviceimplementation\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|solutionrelative:bll\\identity.bll\\serviceimplementation\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5BEEAD0E-D604-4EDB-A146-D24A4E61EBAD}|DAL\\Identity.DAL\\Identity.DAL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\dal\\identity.dal\\internals\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEAD0E-D604-4EDB-A146-D24A4E61EBAD}|DAL\\Identity.DAL\\Identity.DAL.csproj|solutionrelative:dal\\identity.dal\\internals\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|c:\\users\\hp\\desktop\\n-tier project\\dotnet-starter2\\identity\\api\\identity.api\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|solutionrelative:api\\identity.api\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5BEEAD0E-D604-4EDB-A146-D24A4E61EBAD}|DAL\\Identity.DAL\\Identity.DAL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\dal\\identity.dal\\internals\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEAD0E-D604-4EDB-A146-D24A4E61EBAD}|DAL\\Identity.DAL\\Identity.DAL.csproj|solutionrelative:dal\\identity.dal\\internals\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,27 +27,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccountService.cs",
-              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
-              "RelativeDocumentMoniker": "BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
-              "ToolTip": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
-              "RelativeToolTip": "BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwGMAAAAAAAAAAAAAAA==",
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "RelativeDocumentMoniker": "DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "RelativeToolTip": "DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAUwCYAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-18T23:33:57.93Z",
+              "WhenOpened": "2026-01-21T11:21:00.058Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AccountsController.cs",
-              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\API\\Identity.API\\Controllers\\AccountsController.cs",
-              "RelativeDocumentMoniker": "API\\Identity.API\\Controllers\\AccountsController.cs",
-              "ToolTip": "C:\\Users\\Hp\\Desktop\\N-tier project\\dotnet-starter2\\Identity\\API\\Identity.API\\Controllers\\AccountsController.cs",
-              "RelativeToolTip": "API\\Identity.API\\Controllers\\AccountsController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DAL\\Identity.DAL\\Internals\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "DAL\\Identity.DAL\\Internals\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DAL\\Identity.DAL\\Internals\\UnitOfWork.cs",
+              "RelativeToolTip": "DAL\\Identity.DAL\\Internals\\UnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-18T23:30:20.782Z",
+              "WhenOpened": "2026-01-21T11:17:23.489Z",
               "EditorCaption": ""
             }
           ]

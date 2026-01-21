@@ -1,5 +1,5 @@
 ﻿using Identity.BLL.Abstractions.Internals.Repositories;
-using Identity.DataAccess.Data;
+using Identity.DAL.Data;
 using Identity.Entity.Commons;
 using Microsoft.EntityFrameworkCore;
 

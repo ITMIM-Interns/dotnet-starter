@@ -1,9 +1,9 @@
 ﻿using Identity.BLL.Abstractions.Externals;
 using Identity.BLL.Abstractions.Internals.Repositories;
+using Identity.DAL.Data;
 using Identity.DAL.Implementations.Externals.Emails;
 using Identity.DAL.Implementations.Externals.Files;
 using Identity.DAL.Internals;
-using Identity.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
