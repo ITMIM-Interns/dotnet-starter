@@ -11,8 +11,6 @@ namespace Identity.API.Middlewares
         private readonly RequestDelegate _next;
         private readonly ILogger<GlobalCustomExceptionHandler> _log;
 
-       
-
         public GlobalCustomExceptionHandler(RequestDelegate next, ILogger<GlobalCustomExceptionHandler> log)
         {
             _next = next;

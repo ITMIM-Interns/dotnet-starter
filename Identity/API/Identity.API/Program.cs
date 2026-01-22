@@ -1,8 +1,13 @@
 using Amazon.S3;
 using Identity.API.Middlewares;
-using Microsoft.AspNetCore.Mvc;
 using Identity.BLL.ServiceRegistration;
 using Identity.DAL.ServiceRegistration;
+using Identity.DTO.Accounts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +36,23 @@ builder.Services.AddSwaggerGen();
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception();
 builder.Services.AddBLLServices();
 builder.Services.AddDALServices(connectionString);
+var jwtSection = builder.Configuration.GetRequiredSection("JwtSettings");
+var jwtSettings = jwtSection.Get<JwtSetting>()
+    ?? throw new InvalidOperationException("JwtSettings is missing.");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options=>
+       options.TokenValidationParameters=new TokenValidationParameters
+       {
+           ValidateIssuer = true,
+           ValidateAudience = true,
+           ValidateIssuerSigningKey = true,
+           ValidateLifetime = true,
+
+           ValidIssuer= jwtSettings.Issuer,
+           ValidAudience= jwtSettings.Audience,
+           IssuerSigningKey=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
+           ClockSkew=TimeSpan.Zero,
+       });
 builder.Services.AddSingleton<IAmazonS3>(sp =>
 {
     var config = sp.GetRequiredService<IConfiguration>();
