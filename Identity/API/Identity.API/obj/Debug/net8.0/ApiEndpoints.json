@@ -107,9 +107,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "Identity.DTO.Accounts.LoginDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

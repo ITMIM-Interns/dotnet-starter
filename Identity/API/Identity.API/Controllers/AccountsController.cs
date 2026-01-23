@@ -44,19 +44,10 @@ namespace Identity.API.Controllers
             return Ok(result);
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(Guid id)
+        public async Task<IActionResult> Login(LoginDto request)
         {
-            var user = await _userService.GetByIdAsync(id);
-            if (user is null)
-                return Unauthorized();
-
-            string accessToken =
-                _tokenService.CreateAccessToken(user);
-
-            return Ok(new
-            {
-                accessToken
-            });
+            string token = await _accountService.LoginAsync(request);
+            return Ok(token);
         }
     }
 }

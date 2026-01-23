@@ -7,6 +7,7 @@ using Identity.BLL.Helpers;
 using Identity.DTO.Accounts;
 using Identity.Entity.Enums;
 using Identity.Entity.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Identity.BLL.ServiceImplementation
 {
@@ -16,13 +17,18 @@ namespace Identity.BLL.ServiceImplementation
         private readonly IUserVerificationRepository _userVerificationRepo;
         private readonly IEmailService _emailService;
         private readonly IUnitOfWork _unitOfWork;
-
-        public AccountService(IUserRepository userRepo, IUserVerificationRepository userVerificationRepo, IEmailService emailService, IUnitOfWork unitOfWork)
+        private readonly ITokenService _tokenService;
+        private readonly ICacheService _cacheService;
+        private readonly IConfiguration _configuration;
+        public AccountService(IUserRepository userRepo, IUserVerificationRepository userVerificationRepo, IEmailService emailService, IUnitOfWork unitOfWork, ITokenService tokenService, ICacheService cacheService, IConfiguration configuration)
         {
             _userRepo = userRepo;
             _userVerificationRepo = userVerificationRepo;
             _emailService = emailService;
             _unitOfWork = unitOfWork;
+            _tokenService = tokenService;
+            _cacheService = cacheService;
+            _configuration = configuration;
         }
 
         public async Task<bool> ConfirmEmail(ConfirmEmailDto dto)
@@ -66,6 +72,20 @@ namespace Identity.BLL.ServiceImplementation
             return;
         }
 
+        public async Task<string> LoginAsync(LoginDto dto)
+        {
+            User? existUser = await _userRepo.FindByEmailAsync(dto.Email);
+            if (existUser is null)
+                throw new InvalidAccountException(ExceptionMessage.InvalidLoginMessage);
+            if (existUser.IsActive is false)
+                throw new InvalidAccountException(ExceptionMessage.AccountNotActiveMessage);
+            bool isCorrect = await _userRepo.CheckUserPasswordAsync(existUser, dto.Password);
+            if (!isCorrect)
+                throw new InvalidAccountException(ExceptionMessage.InvalidLoginMessage);
+            string token = _tokenService.CreateAccessToken(existUser,roles:null);
+            return token;
+        }
+
         public async Task<bool> SendEmailVerificationCode(Guid id)
         {
             User? existUser = await _userRepo.GetByIdAsync(id);
@@ -95,6 +115,7 @@ namespace Identity.BLL.ServiceImplementation
             if (existUser.IsActive)
                 return true;
             existUser.IsActive = true;
+            await _cacheService.RemoveAsync($"DeactivatedUser:{id}");
             return await _unitOfWork.SaveAsync() > 0;
         }
 
@@ -104,6 +125,8 @@ namespace Identity.BLL.ServiceImplementation
             if (existUser is null) throw new UserNotFoundException(ExceptionMessage.UserNotFoundMessage);
             if (!existUser.IsActive)
                 return true;
+            await _cacheService.RemoveAsync($"RefreshToken:{id}");
+            await _cacheService.SetAsync($"DeactivatedUser:{id}", true, TimeSpan.FromMinutes(_configuration.GetValue<int>("JwtSettings:ExpireAt")+1));
             existUser.IsActive = false;
             return await _unitOfWork.SaveAsync() > 0;
         }

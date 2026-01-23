@@ -21,20 +21,22 @@ namespace Identity.BLL.ServiceImplementation
 
         public string CreateAccessToken(User user, string[] roles=null)
         {
+            DateTimeOffset now = DateTimeOffset.UtcNow;
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Nbf,now.AddSeconds(2).ToUnixTimeSeconds().ToString(),ClaimValueTypes.Integer64),
+                new Claim(JwtRegisteredClaimNames.Iat,now.ToUnixTimeSeconds().ToString(),ClaimValueTypes.Integer64)
             };
-            var env = Environment.GetEnvironmentVariable("JwtSettings__SecretKey");
+            var env = Environment.GetEnvironmentVariable("JwtSettings__SecretKey")??throw new Exception("Secret key cannot be empty");
             if (roles is not null)
             {
                 foreach(var role in roles)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, role));
                 }
-
             }
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(env));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Identity.BLL.Helpers
 {
     public static class SecurityService
     {
 
-        public static byte[] GenerateSalt() => RandomNumberGenerator.GetBytes(16);
+        public static byte[] GenerateRandomNumber(int byteLength=64) => RandomNumberGenerator.GetBytes(16);
         public static string GenerateVerificationCode()=> RandomNumberGenerator.GetInt32(100000, 999999).ToString();
 
         public static string PasswordHash(string password, byte[] salt)
@@ -18,8 +19,19 @@ namespace Identity.BLL.Helpers
                 iterationCount: 100_000,
                 numBytesRequested: 32
             );
-
             return Convert.ToBase64String(hashByte);
+        }
+        public static string HashRefreshToken(string refreshToken)
+        {
+            var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken));
+            return Convert.ToHexString(bytes);
+        }
+        public static bool VerifyRefreshToken(string incomingToken, string storedHashHex)
+        {
+            var incomingHash = HashRefreshToken(incomingToken);
+            var newHashed = Convert.FromHexString(incomingHash);
+            var oldhashed = Convert.FromHexString(storedHashHex);
+            return CryptographicOperations.FixedTimeEquals(newHashed, oldhashed);
         }
         public static bool VerifyPassword(string password, byte[] salt,string correctPassword)
         {

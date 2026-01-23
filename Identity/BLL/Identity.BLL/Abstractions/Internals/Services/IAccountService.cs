@@ -9,5 +9,6 @@ namespace Identity.BLL.Abstractions.Internals.Services
         Task<bool> SendEmailVerificationCode(Guid id);
         Task<bool> UserActive(Guid id);
         Task<bool> UserDeactive(Guid id);
+        Task<string> LoginAsync(LoginDto dto);
     }
 }

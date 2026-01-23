@@ -158,6 +158,10 @@
             "AWSSDK.S3": {
               "target": "Package",
               "version": "[4.0.17.2, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[8.0.23, )"
             }
           },
           "imports": [

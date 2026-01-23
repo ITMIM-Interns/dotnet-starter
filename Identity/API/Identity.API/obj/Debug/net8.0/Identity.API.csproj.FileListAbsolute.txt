@@ -323,3 +323,6 @@ C:\Users\Hp\Desktop\MiniApp(N-tier,CQRS pattern)\dotnet-starter\Identity\API\Ide
 C:\Users\Hp\Desktop\MiniApp(N-tier,CQRS pattern)\dotnet-starter\Identity\API\Identity.API\obj\Debug\net8.0\Identity.API.pdb
 C:\Users\Hp\Desktop\MiniApp(N-tier,CQRS pattern)\dotnet-starter\Identity\API\Identity.API\obj\Debug\net8.0\Identity.API.genruntimeconfig.cache
 C:\Users\Hp\Desktop\MiniApp(N-tier,CQRS pattern)\dotnet-starter\Identity\API\Identity.API\obj\Debug\net8.0\ref\Identity.API.dll
+C:\Users\Hp\Desktop\MiniApp(N-tier,CQRS pattern)\dotnet-starter\Identity\API\Identity.API\bin\Debug\net8.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\Hp\Desktop\MiniApp(N-tier,CQRS pattern)\dotnet-starter\Identity\API\Identity.API\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\Hp\Desktop\MiniApp(N-tier,CQRS pattern)\dotnet-starter\Identity\API\Identity.API\bin\Debug\net8.0\StackExchange.Redis.dll

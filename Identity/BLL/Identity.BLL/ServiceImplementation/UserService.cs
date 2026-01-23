@@ -33,9 +33,8 @@ namespace Identity.BLL.ServiceImplementation
                 throw new ExistUserFieldException(ExceptionMessage.ExistUserEmailMessage);
             if (await _userRepo.UserNameExistsAsync(request.Username))
                 throw new ExistUserFieldException(ExceptionMessage.ExistUsernameMessage);
-            byte[] salt = SecurityService.GenerateSalt();
+            byte[] salt = SecurityService.GenerateRandomNumber(16);
             string hashedPassword = SecurityService.PasswordHash(request.Password, salt);
-            Console.WriteLine(hashedPassword.Length);
             User newUser = new User()
             {
                 Username = request.Username,
