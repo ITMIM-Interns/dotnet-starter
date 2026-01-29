@@ -5,8 +5,9 @@ using Identity.BLL.Exceptions.Commons;
 using Identity.BLL.Exceptions.Users;
 using Identity.BLL.Helpers;
 using Identity.DTO.Accounts;
-using Identity.Entity.Enums;
+using Identity.DTO.Users;
 using Identity.Entity.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace Identity.BLL.ServiceImplementation
@@ -14,65 +15,69 @@ namespace Identity.BLL.ServiceImplementation
     public sealed class AccountService : IAccountService
     {
         private readonly IUserRepository _userRepo;
-        private readonly IUserVerificationRepository _userVerificationRepo;
         private readonly IEmailService _emailService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITokenService _tokenService;
         private readonly ICacheService _cacheService;
         private readonly IConfiguration _configuration;
-        public AccountService(IUserRepository userRepo, IUserVerificationRepository userVerificationRepo, IEmailService emailService, IUnitOfWork unitOfWork, ITokenService tokenService, ICacheService cacheService, IConfiguration configuration)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IFileService _fileService;
+        public AccountService(IUserRepository userRepo, IEmailService emailService, IUnitOfWork unitOfWork, ITokenService tokenService, ICacheService cacheService, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IFileService fileService)
         {
             _userRepo = userRepo;
-            _userVerificationRepo = userVerificationRepo;
             _emailService = emailService;
             _unitOfWork = unitOfWork;
             _tokenService = tokenService;
             _cacheService = cacheService;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
+            _fileService = fileService;
         }
 
+        public async Task<Guid> Register(CreateUserDto request)
+        {
+            if (await _userRepo.EmailExistsAsync(request.Email))
+                throw new ExistUserFieldException(ExceptionMessage.ExistUserEmailMessage);
+            if (await _userRepo.UserNameExistsAsync(request.Username))
+                throw new ExistUserFieldException(ExceptionMessage.ExistUsernameMessage);
+            byte[] salt = SecurityService.GenerateRandomNumber(16);
+            string hashedPassword = SecurityService.PasswordHash(request.Password, salt);
+            User newUser = new User()
+            {
+                Username = request.Username,
+                Email = request.Email,
+                Password = hashedPassword,
+                Salt = Convert.ToBase64String(salt),
+                ContactNumber = request.ContactNumber,
+                IsActive = false,
+                IsConfirmed = false,
+            };
+            if (request.Image is not null)
+                newUser.Image = await _fileService.UploadFileAsync(request.Image, "user-image");
+            await _userRepo.Add(newUser);
+            await _unitOfWork.SaveAsync();
+            string code = SecurityService.GenerateVerificationCode();
+            await _cacheService.SetAsync($"user-email-verification-{newUser.Id}", code, TimeSpan.FromMinutes(2));
+            await _emailService.SendAsync(request.Email, code, "Email confrimation");
+            return newUser.Id;
+        }
         public async Task<bool> ConfirmEmail(ConfirmEmailDto dto)
         {
-            UserVerification? existVerification = await _userVerificationRepo.GetUserVerificationByType(dto.userId, VerificationType.EmailConfirm);
-            if (existVerification is null)
+            string? code = await _cacheService.GetAsync<string>($"user-email-verification-{dto.UserId}");
+            if (code is null)
                 throw new VerificationNotFoundException(ExceptionMessage.VerificationNotFoundMessage);
-            if (existVerification.Status is VerificationStatus.Success)
-                throw new VerificationAlreadyConfirmed(ExceptionMessage.VerificationConfirmedMessage);
-            if (existVerification.Code != dto.code)
+            if (code != dto.Code)
                 throw new InvalidVerificationCodeException(ExceptionMessage.InvalidVerificationCodeMessage);
-            if (existVerification.ExpiresAt <= DateTimeOffset.UtcNow)
-            {
-                existVerification.Status = VerificationStatus.Expired;
-                throw new VerificationCodeExpiredException(ExceptionMessage.InvalidExpiresTimeMessage);
-            }
-            existVerification.Status = VerificationStatus.Success;
-            return await _unitOfWork.SaveAsync() > 0;
-        }
-
-        public async Task ForgetPassword(ForgetPasswordDto dto)
-        {
-            User? existUser = await _userRepo.FindByEmailAsync(dto.Email);
+            User? existUser = await _userRepo.GetByIdAsync(dto.UserId, true);
             if (existUser is null)
-                return;
-            bool hasActiveCode = await _userVerificationRepo.CheckActiveVerificationCodeAsync(existUser.Id, VerificationType.PasswordReset);
-            if (hasActiveCode)
-                throw new VerificationCodeExpiredException(ExceptionMessage.ValidVerificationCode);
-            string resetCode = SecurityService.GenerateVerificationCode();
-            UserVerification newVerification = new()
-            {
-                Code = resetCode,
-                Type = VerificationType.PasswordReset,
-                UserId = existUser.Id,
-                ExpiresAt = DateTime.UtcNow.AddMinutes(5),
-                Status = VerificationStatus.Active,
-            };
-            await _userVerificationRepo.Add(newVerification);
-            await _emailService.SendAsync(dto.Email, resetCode, "Reset verification code");
-            await _unitOfWork.SaveAsync();
-            return;
+                throw new UserNotFoundException(ExceptionMessage.UserNotFoundMessage);
+            existUser.IsActive = true;
+            existUser.IsConfirmed = true;
+            int rowCount = await _unitOfWork.SaveAsync();
+            await _cacheService.RemoveAsync($"user-email-verification-{existUser.Id}");
+            return rowCount > 0;
         }
-
-        public async Task<string> LoginAsync(LoginDto dto)
+        public async Task<bool> LoginAsync(LoginDto dto)
         {
             User? existUser = await _userRepo.FindByEmailAsync(dto.Email);
             if (existUser is null)
@@ -82,32 +87,52 @@ namespace Identity.BLL.ServiceImplementation
             bool isCorrect = await _userRepo.CheckUserPasswordAsync(existUser, dto.Password);
             if (!isCorrect)
                 throw new InvalidAccountException(ExceptionMessage.InvalidLoginMessage);
-            string token = _tokenService.CreateAccessToken(existUser,roles:null);
-            return token;
+            if (await _cacheService.GetAsync<string>("refresh-token") is not null)
+                await _cacheService.RemoveAsync("refresh-token");
+            await _cacheService.SetAsync("refresh-token", Convert.ToBase64String(SecurityService.GenerateRandomNumber(64)), TimeSpan.FromDays(_configuration.GetValue<int>("JwtSettings:RefreshTokenExpireDay")));
+            string token = _tokenService.CreateAccessToken(existUser);
+             _httpContextAccessor.HttpContext?.Response.Cookies.Append("access-token", token, new CookieOptions
+             {
+                Secure = true,
+                HttpOnly = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddMinutes(_configuration.GetValue<int>("JwtSettings:ExpireAt")),
+             });
+            return true;
         }
-
-        public async Task<bool> SendEmailVerificationCode(Guid id)
+        public async Task<bool> LogoutAsync()
         {
-            User? existUser = await _userRepo.GetByIdAsync(id);
+            await _cacheService.RemoveAsync("refresh-token");
+            _httpContextAccessor.HttpContext?.Response.Cookies.Delete("access-token");
+            return true;
+        }
+        public async Task<bool> ForgetPassword(ForgetPasswordDto dto)
+        {
+            User? existUser = await _userRepo.FindByEmailAsync(dto.Email);
+            if (existUser is null || !existUser.IsConfirmed || !existUser.IsActive)
+                return true;
+            string? hasActiveCode = await _cacheService.GetAsync<string>($"forget-password-{existUser.Id}");
+            if (hasActiveCode is not null)
+                throw new InvalidAccountException(ExceptionMessage.ValidVerificationCode);
+            string code = SecurityService.GenerateVerificationCode();
+            await _cacheService.SetAsync($"forget-password-{existUser.Id}", code, TimeSpan.FromMinutes(2));
+            await _emailService.SendAsync(dto.Email, code, "Reset verification code");
+            return true;
+        }
+        public async Task<Guid> SendEmailVerificationCode(string email)
+        {
+            User? existUser = await _userRepo.FindByEmailAsync(email);
             if (existUser is null)
                 throw new UserNotFoundException(ExceptionMessage.UserNotFoundMessage);
-            bool hasCode = await _userVerificationRepo.CheckActiveVerificationCodeAsync(id, VerificationType.EmailConfirm);
-            if (hasCode)
-                throw new InvalidAccountException(ExceptionMessage.InvalidVerificationCodeMessage);
+            string? code = await _cacheService.GetAsync<string>($"user-email-verification-{existUser.Id}");
+            if (code is not null)
+                throw new InvalidAccountException(ExceptionMessage.ValidVerificationCode);
             string newCode = SecurityService.GenerateVerificationCode();
+            await _cacheService.SetAsync($"user-email-verification-{existUser.Id}", newCode, TimeSpan.FromMinutes(2));
             await _emailService.SendAsync(existUser.Email, newCode, "Verification Code");
-            UserVerification newVerification = new UserVerification
-            {
-                Code = newCode,
-                UserId = id,
-                Type = VerificationType.EmailConfirm,
-                ExpiresAt = DateTimeOffset.UtcNow.AddMinutes(5),
-                Status = VerificationStatus.Active
-            };
-            await _userVerificationRepo.Add(newVerification);
-            return await _unitOfWork.SaveAsync() > 0;
+            return existUser.Id;
         }
-
+      
         public async Task<bool> UserActive(Guid id)
         {
             User? existUser = await _userRepo.GetByIdAsync(id, true);

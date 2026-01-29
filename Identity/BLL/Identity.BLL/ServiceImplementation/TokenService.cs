@@ -1,9 +1,9 @@
 ﻿using Identity.BLL.Abstractions.Externals;
 using Identity.DTO.Accounts;
 using Identity.Entity.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -12,43 +12,39 @@ namespace Identity.BLL.ServiceImplementation
 {
     public sealed class TokenService : ITokenService
     { 
-        private readonly JwtSetting _jwtSetting;
-
-        public TokenService(IOptions<JwtSetting> jwtSetting)
+        private readonly JwtSettings _jwtSetting;
+        public TokenService(IOptions<JwtSettings> option)
         {
-            _jwtSetting = jwtSetting.Value;
+            _jwtSetting = option.Value;
         }
 
-        public string CreateAccessToken(User user, string[] roles=null)
+        public string CreateAccessToken(User user, string[] roles = null)
         {
-            DateTimeOffset now = DateTimeOffset.UtcNow;
+            var now = DateTime.UtcNow;
+
             var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email,user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Nbf,now.AddSeconds(2).ToUnixTimeSeconds().ToString(),ClaimValueTypes.Integer64),
-                new Claim(JwtRegisteredClaimNames.Iat,now.ToUnixTimeSeconds().ToString(),ClaimValueTypes.Integer64)
-            };
-            var env = Environment.GetEnvironmentVariable("JwtSettings__SecretKey")??throw new Exception("Secret key cannot be empty");
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        new Claim(JwtRegisteredClaimNames.Iat,new DateTimeOffset(now).ToUnixTimeSeconds().ToString(),ClaimValueTypes.Integer64)};
             if (roles is not null)
-            {
-                foreach(var role in roles)
-                {
+                foreach (var role in roles)
                     claims.Add(new Claim(ClaimTypes.Role, role));
-                }
-            }
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(env));
+            var secret = Environment.GetEnvironmentVariable("JwtSettings__SecretKey")
+                         ?? _jwtSetting.SecretKey; 
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken
-            (
-                issuer:_jwtSetting.Issuer,
-                audience:_jwtSetting.Audience,
+            var expires = now.AddMinutes(_jwtSetting.ExpireAt);
+            var token = new JwtSecurityToken(
+                issuer: _jwtSetting.Issuer,
+                audience: _jwtSetting.Audience,
                 claims: claims,
-                expires:DateTime.UtcNow.AddMinutes(_jwtSetting.ExpireAt),
+                notBefore: now,
+                expires: expires,   
                 signingCredentials: creds
             );
-            return new JwtSecurityTokenHandler().WriteToken(token); 
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

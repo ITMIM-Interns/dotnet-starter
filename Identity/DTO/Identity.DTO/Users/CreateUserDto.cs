@@ -7,7 +7,7 @@ namespace Identity.DTO.Users
         string Email,
         string Password,
         string ContactNumber,
-        IFormFile Image
+        IFormFile? Image
         );
    
 }

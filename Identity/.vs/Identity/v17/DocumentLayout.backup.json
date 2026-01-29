@@ -3,12 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\bll\\identity.bll\\serviceimplementation\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|solutionrelative:bll\\identity.bll\\serviceimplementation\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\api\\identity.api\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|solutionrelative:api\\identity.api\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\bll\\identity.bll\\abstractions\\internals\\services\\iaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|solutionrelative:bll\\identity.bll\\abstractions\\internals\\services\\iaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\bll\\identity.bll\\serviceimplementation\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|solutionrelative:bll\\identity.bll\\serviceimplementation\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\api\\identity.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|solutionrelative:api\\identity.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20B5E52C-E7B3-4AB2-BF7C-E05236359B44}|DTO\\Identity.DTO\\Identity.DTO.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\dto\\identity.dto\\accounts\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20B5E52C-E7B3-4AB2-BF7C-E05236359B44}|DTO\\Identity.DTO\\Identity.DTO.csproj|solutionrelative:dto\\identity.dto\\accounts\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\bll\\identity.bll\\serviceregistration\\bllservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|solutionrelative:bll\\identity.bll\\serviceregistration\\bllservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\api\\identity.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B71F516D-6501-4639-9969-EC3926BDA885}|API\\Identity.API\\Identity.API.csproj|solutionrelative:api\\identity.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\bll\\identity.bll\\fluentvalidations\\users\\createuserdtovalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C2BDC62-4429-40FF-9C80-692ECF7985F2}|BLL\\Identity.BLL\\Identity.BLL.csproj|solutionrelative:bll\\identity.bll\\fluentvalidations\\users\\createuserdtovalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BEEAD0E-D604-4EDB-A146-D24A4E61EBAD}|DAL\\Identity.DAL\\Identity.DAL.csproj|c:\\users\\hp\\desktop\\miniapp(n-tier,cqrs pattern)\\dotnet-starter\\identity\\dal\\identity.dal\\internals\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEAD0E-D604-4EDB-A146-D24A4E61EBAD}|DAL\\Identity.DAL\\Identity.DAL.csproj|solutionrelative:dal\\identity.dal\\internals\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,9 +56,9 @@
               "RelativeDocumentMoniker": "BLL\\Identity.BLL\\Abstractions\\Internals\\Services\\IAccountService.cs",
               "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\Abstractions\\Internals\\Services\\IAccountService.cs",
               "RelativeToolTip": "BLL\\Identity.BLL\\Abstractions\\Internals\\Services\\IAccountService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-23T12:55:14.443Z",
+              "WhenOpened": "2026-01-28T14:09:17.247Z",
               "EditorCaption": ""
             },
             {
@@ -40,14 +68,105 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AccountsController.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\API\\Identity.API\\Controllers\\AccountsController.cs",
+              "RelativeDocumentMoniker": "API\\Identity.API\\Controllers\\AccountsController.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\API\\Identity.API\\Controllers\\AccountsController.cs",
+              "RelativeToolTip": "API\\Identity.API\\Controllers\\AccountsController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwCcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:01:24.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\API\\Identity.API\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "API\\Identity.API\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\API\\Identity.API\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "API\\Identity.API\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:00:46.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "AccountService.cs",
               "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
               "RelativeDocumentMoniker": "BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
-              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
-              "RelativeToolTip": "BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwIMAAAAJAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs*",
+              "RelativeToolTip": "BLL\\Identity.BLL\\ServiceImplementation\\AccountService.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-23T07:24:47.192Z",
+              "WhenOpened": "2026-01-28T09:51:56.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DTO\\Identity.DTO\\Accounts\\LoginDto.cs",
+              "RelativeDocumentMoniker": "DTO\\Identity.DTO\\Accounts\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DTO\\Identity.DTO\\Accounts\\LoginDto.cs",
+              "RelativeToolTip": "DTO\\Identity.DTO\\Accounts\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:57:49.484Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BLLService.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\ServiceRegistration\\BLLService.cs",
+              "RelativeDocumentMoniker": "BLL\\Identity.BLL\\ServiceRegistration\\BLLService.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\ServiceRegistration\\BLLService.cs",
+              "RelativeToolTip": "BLL\\Identity.BLL\\ServiceRegistration\\BLLService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:06:30.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\API\\Identity.API\\Program.cs",
+              "RelativeDocumentMoniker": "API\\Identity.API\\Program.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\API\\Identity.API\\Program.cs",
+              "RelativeToolTip": "API\\Identity.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:07:57.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CreateUserDtoValidator.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\FluentValidations\\Users\\CreateUserDtoValidator.cs",
+              "RelativeDocumentMoniker": "BLL\\Identity.BLL\\FluentValidations\\Users\\CreateUserDtoValidator.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\BLL\\Identity.BLL\\FluentValidations\\Users\\CreateUserDtoValidator.cs",
+              "RelativeToolTip": "BLL\\Identity.BLL\\FluentValidations\\Users\\CreateUserDtoValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:49:21.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "RelativeDocumentMoniker": "DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\Hp\\Desktop\\MiniApp(N-tier,CQRS pattern)\\dotnet-starter\\Identity\\DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "RelativeToolTip": "DAL\\Identity.DAL\\Internals\\UserRepository.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBUAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:00:15.849Z",
               "EditorCaption": ""
             }
           ]

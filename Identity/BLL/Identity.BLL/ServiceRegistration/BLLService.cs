@@ -4,6 +4,7 @@ using Identity.BLL.Abstractions.Internals.Services;
 using Identity.BLL.FluentValidations.Users;
 using Identity.BLL.ServiceImplementation;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
 
 namespace Identity.BLL.ServiceRegistration
 {
@@ -12,9 +13,11 @@ namespace Identity.BLL.ServiceRegistration
         public static IServiceCollection AddBLLServices(this IServiceCollection services)
         {
             services.AddValidatorsFromAssembly(typeof(CreateUserDtoValidator).Assembly);
+            services.AddFluentValidationAutoValidation();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService,TokenService>();
+            services.AddHttpContextAccessor();
             return services;
         }
     }

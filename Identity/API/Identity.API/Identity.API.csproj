@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\BLL\Identity.BLL\Identity.BLL.csproj" />
     <ProjectReference Include="..\..\DAL\Identity.DAL\Identity.DAL.csproj" />
+    <ProjectReference Include="..\..\DTO\Identity.DTO\Identity.DTO.csproj" />
   </ItemGroup>
 
 </Project>

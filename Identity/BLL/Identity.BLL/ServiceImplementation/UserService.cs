@@ -5,7 +5,6 @@ using Identity.BLL.Exceptions.Commons;
 using Identity.BLL.Exceptions.Users;
 using Identity.BLL.Helpers;
 using Identity.DTO.Users;
-using Identity.Entity.Enums;
 using Identity.Entity.Models;
 
 namespace Identity.BLL.ServiceImplementation
@@ -14,52 +13,17 @@ namespace Identity.BLL.ServiceImplementation
     {
         private readonly IUserRepository _userRepo;
         private readonly IFileService _fileService;
-        private readonly IEmailService _emailService;
-        private readonly IUserVerificationRepository _userVerificationRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICacheService _cacheService;
         public UserService(IUserRepository userRepo, IFileService fileService,
-                                        IEmailService emailService, IUserVerificationRepository userVerificationRepo, IUnitOfWork unitOfWork)
+                                        IUnitOfWork unitOfWork, ICacheService cacheService)
         {
             _userRepo = userRepo;
             _fileService = fileService;
-            _emailService = emailService;
-            _userVerificationRepo = userVerificationRepo;
             _unitOfWork = unitOfWork;
+            _cacheService = cacheService;
         }
 
-        public async Task<Guid> Add(CreateUserDto request)
-        {
-            if (await _userRepo.EmailExistsAsync(request.Email))
-                throw new ExistUserFieldException(ExceptionMessage.ExistUserEmailMessage);
-            if (await _userRepo.UserNameExistsAsync(request.Username))
-                throw new ExistUserFieldException(ExceptionMessage.ExistUsernameMessage);
-            byte[] salt = SecurityService.GenerateRandomNumber(16);
-            string hashedPassword = SecurityService.PasswordHash(request.Password, salt);
-            User newUser = new User()
-            {
-                Username = request.Username,
-                Email = request.Email,
-                Password = hashedPassword,
-                Salt = Convert.ToBase64String(salt),
-                ContactNumber = request.ContactNumber,
-                IsActive = false,
-            };
-            UserVerification userVerification = new UserVerification()
-            {
-                User = newUser,
-                ExpiresAt = DateTimeOffset.UtcNow.AddMinutes(5),
-                Code = SecurityService.GenerateVerificationCode(),
-                Status = VerificationStatus.Active,
-                Type = VerificationType.EmailConfirm,
-            };
-            if (request.Image is not null)
-                newUser.Image = await _fileService.UploadFileAsync(request.Image, "user-image");
-            await _userVerificationRepo.Add(userVerification);
-            await _userRepo.Add(newUser);
-            await _unitOfWork.SaveAsync();
-            await _emailService.SendAsync(request.Email, userVerification.Code, "Email confrimation");
-            return newUser.Id;
-        }
         public async Task Remove(Guid id)
         {
             User? existUser = await _userRepo.GetByIdAsync(id, true);

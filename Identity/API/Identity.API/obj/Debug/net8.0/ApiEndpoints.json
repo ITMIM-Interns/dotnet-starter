@@ -75,20 +75,20 @@
   {
     "ContainingType": "Identity.API.Controllers.AccountsController",
     "Method": "SendEmailVerificationCode",
-    "RelativePath": "api/Accounts/{userId}/verification-code",
+    "RelativePath": "api/Accounts/email-verification-code",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userId",
-        "Type": "System.Guid",
-        "IsRequired": true
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Boolean",
+        "Type": "System.Guid",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -97,6 +97,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Identity.API.Controllers.AccountsController",
+    "Method": "ForgetPassword",
+    "RelativePath": "api/Accounts/forget-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Identity.DTO.Accounts.ForgetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Identity.API.Controllers.AccountsController",
@@ -115,9 +131,29 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Identity.API.Controllers.UsersController",
-    "Method": "Add",
-    "RelativePath": "api/Users",
+    "ContainingType": "Identity.API.Controllers.AccountsController",
+    "Method": "Logout",
+    "RelativePath": "api/Accounts/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Identity.API.Controllers.AccountsController",
+    "Method": "Register",
+    "RelativePath": "api/Accounts/register",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -148,7 +184,17 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Guid",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Identity.API.Controllers.UsersController",

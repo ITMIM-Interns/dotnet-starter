@@ -17,8 +17,8 @@ namespace Identity.DAL.Implementations.Externals.Files
         {
             _configuration = configuration;
 
-            var accessKey = _configuration["AWS:AccessKey"];
-            var secretKey = _configuration["AWS:SecretKey"];
+            var accessKey = Environment.GetEnvironmentVariable("AWS__AccessKey");
+            var secretKey = Environment.GetEnvironmentVariable("AWS__SecretKey");
             var region = _configuration["AWS:Region"];
             _bucketName = _configuration["AWS:BucketName"];
 

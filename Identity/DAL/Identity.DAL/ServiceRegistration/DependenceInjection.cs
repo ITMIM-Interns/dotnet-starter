@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -23,7 +24,6 @@ namespace Identity.DAL.ServiceRegistration
             //---------------------------Internals---------------------------------------------------------------------
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserVerificationRepository, UserVerificationRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
@@ -37,28 +37,52 @@ namespace Identity.DAL.ServiceRegistration
                 options.InstanceName = "Identity";
             });
             services.AddScoped<ICacheService, RedisService>();
-            var jwtSection = configuration.GetRequiredSection("JwtSettings");
-            var jwtSettings = jwtSection.Get<JwtSetting>()
+            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            IConfigurationSection jwtSection = configuration.GetRequiredSection("JwtSettings");
+            JwtSettings jwtSettings = jwtSection.Get<JwtSettings>()
                 ?? throw new InvalidOperationException("JwtSettings is missing.");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                   options.TokenValidationParameters = new TokenValidationParameters
-                   {
-                       ValidateIssuer = true,
-                       ValidateAudience = true,
-                       ValidateIssuerSigningKey = true,
-                       ValidateLifetime = true,
+      .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+      {
+          options.Events = new JwtBearerEvents
+          {
+              OnMessageReceived = context =>
+              {
+                  context.Token = context.Request.Cookies["access-token"];
+                  return Task.CompletedTask;
+              },
+                OnAuthenticationFailed = context =>
+                {
+                    Console.WriteLine(context.Exception.ToString());
+                    return Task.CompletedTask;
+                },
+              OnChallenge = context =>
+              {
+                  Console.WriteLine("Challenge error: " + context.Error);
+                  Console.WriteLine("Challenge desc: " + context.ErrorDescription);
+                  return Task.CompletedTask;
+              }
+          };
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+              ValidateIssuer = true,
+              ValidateAudience = true,
+              ValidateIssuerSigningKey = true,
+              ValidateLifetime = true,
 
-                       ValidIssuer = jwtSettings.Issuer,
-                       ValidAudience = jwtSettings.Audience,
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
-                       ClockSkew = TimeSpan.Zero,
-                   });
+              ValidIssuer = jwtSettings.Issuer,
+              ValidAudience = jwtSettings.Audience,
+              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
+              ClockSkew = TimeSpan.Zero,
+          };
+
+         
+      });
             services.AddSingleton<IAmazonS3>(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
-                var accessKey = config["AWS:AccessKey"];
-                var secretKey = config["AWS:SecretKey"];
+                var accessKey = Environment.GetEnvironmentVariable("AWS__AccessKey");
+                var secretKey = Environment.GetEnvironmentVariable("AWS__SecretKey"); ;
                 var region = config["AWS:Region"];
 
                 var awsCredentials = new Amazon.Runtime.BasicAWSCredentials(accessKey, secretKey);

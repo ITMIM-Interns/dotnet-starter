@@ -19,7 +19,7 @@ namespace Identity.BLL.FluentValidations.Users
                 .Matches(@"[a-z]").WithMessage("Password must contain at least one lowercase letter")
                 .Matches(@"[!@#$%^&*()_+\-]").WithMessage("Password must contain at least one special character");
             RuleFor(u => u.ContactNumber).NotEmpty().WithMessage("Contact number is required").Matches(@"^\+?[0-9]{10,15}$").WithMessage("Contact number must be a valid phone number");
-            RuleFor(u => u.Image).Must(img => img is null || ImageService.IsImage(img)).WithMessage("Uploaded file must be a valid image (jpg, png) ");
+            RuleFor(u => u.Image).Must(img => img is null || ImageService.IsImage(img)).WithMessage("Uploaded file must be a valid image (jpg, png)");
         }
     }
 }

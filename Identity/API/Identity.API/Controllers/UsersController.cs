@@ -13,12 +13,6 @@ namespace Identity.API.Controllers
         {
             _userService = userService;
         }
-        [HttpPost]
-        public async Task<ActionResult> Add([FromForm]CreateUserDto request)
-        {
-            Guid id=await _userService.Add(request);
-            return CreatedAtAction(nameof(Add), GetUserDetail, id);
-        }
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<UserDto>> GetUserDetail([FromRoute] Guid id)
         {

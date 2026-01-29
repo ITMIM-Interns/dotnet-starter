@@ -10,6 +10,6 @@ public sealed class User :BaseEntity<Guid>
     public string Password { get; set; }
     public string Salt { get; set; }
     public string? Image { get; set; }
+    public bool IsConfirmed { get; set; }
     public bool IsActive { get; set; }
-    public ICollection<UserVerification> UserVerifications { get; set; }
 }
